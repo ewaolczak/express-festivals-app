@@ -76,6 +76,100 @@ app.delete(
   }
 );
 
+app.get('/concerts', (req, res) => {
+  res.json(db.concerts);
+});
+
+app.get('/concerts/:id', (req, res) => {
+  res.json(db.concerts.find((concert) => concert.id === +req.params.id));
+});
+
+app.post('/concerts', (req, res) => {
+  const { author, text } = req.body;
+  // const id = uuid(); //Postman wywala błąd
+  const id = +req.params.id; // Żeby sprawdzić połączenie, trzeba ręcznie wpisać id
+  const newconcert = { id: id, author, text };
+  db.concerts.push(newconcert);
+  res.json({ message: 'ok!' });
+});
+
+app.put(
+  '/concerts/:id',
+  (req, res) => {
+    const { author, text } = req.body;
+    const id = +req.params.id;
+    const concert = db.concerts.find((concert) => concert.id === id);
+    concert.author = author;
+    concert.text = text;
+    res.json({ message: 'OK!' });
+  },
+  (err) => {
+    console.log(err);
+  }
+);
+
+app.delete(
+  '/concerts/:id',
+  (req, res) => {
+    const id = +req.params.id;
+    db.concerts.splice(
+      db.concerts.findIndex((concert) => concert.id === id),
+      1
+    );
+    res.json({ message: 'OK!' });
+  },
+  (err) => {
+    console.log(err);
+  }
+);
+
+app.get('/seats', (req, res) => {
+  res.json(db.seats);
+});
+
+app.get('/seats/:id', (req, res) => {
+  res.json(db.seats.find((seat) => seat.id === +req.params.id));
+});
+
+app.post('/seats', (req, res) => {
+  const { author, text } = req.body;
+  // const id = uuid(); //Postman wywala błąd
+  const id = +req.params.id; // Żeby sprawdzić połączenie, trzeba ręcznie wpisać id
+  const newseat = { id: id, author, text };
+  db.seats.push(newseat);
+  res.json({ message: 'ok!' });
+});
+
+app.put(
+  '/seats/:id',
+  (req, res) => {
+    const { author, text } = req.body;
+    const id = +req.params.id;
+    const seat = db.seats.find((seat) => seat.id === id);
+    seat.author = author;
+    seat.text = text;
+    res.json({ message: 'OK!' });
+  },
+  (err) => {
+    console.log(err);
+  }
+);
+
+app.delete(
+  '/seats/:id',
+  (req, res) => {
+    const id = +req.params.id;
+    db.seats.splice(
+      db.seats.findIndex((seat) => seat.id === id),
+      1
+    );
+    res.json({ message: 'OK!' });
+  },
+  (err) => {
+    console.log(err);
+  }
+);
+
 app.use((req, res) => {
   res.status(404).send('404 not found...');
 });
