@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const uuid = require('uuid').v4;
 const db = require('./../db');
 
 router.route('/concerts').get((req, res) => {
@@ -11,21 +12,23 @@ router.route('/concerts/:id').get((req, res) => {
 });
 
 router.route('/concerts').post((req, res) => {
-  const { author, text } = req.body;
-  // const id = uuid(); //Postman wywala błąd
-  const id = +req.params.id; // Żeby sprawdzić połączenie, trzeba ręcznie wpisać id
-  const newconcert = { id: id, author, text };
-  db.concerts.push(newconcert);
+  const { performer, genre, price, day, image } = req.body;
+  const id = uuid();
+  const newConcert = { id: id, performer, genre, price, day };
+  db.concerts.push(newConcert);
   res.json({ message: 'ok!' });
 });
 
 router.route('/concerts/:id').put(
   (req, res) => {
-    const { author, text } = req.body;
+    const { performer, genre, price, day, image } = req.body;
     const id = +req.params.id;
     const concert = db.concerts.find((concert) => concert.id === id);
-    concert.author = author;
-    concert.text = text;
+    concert.performer = performer;
+    concert.genre = genre;
+    concert.price = price;
+    concert.day = day;
+    concert.image = image;
     res.json({ message: 'OK!' });
   },
   (err) => {

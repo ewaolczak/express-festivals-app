@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const uuid = require('uuid').v4;
 const db = require('./../db');
 
 router.route('/seats').get((req, res) => {
@@ -11,21 +12,22 @@ router.route('/seats/:id').get((req, res) => {
 });
 
 router.route('/seats').post((req, res) => {
-  const { author, text } = req.body;
-  // const id = uuid(); //Postman wywala błąd
-  const id = +req.params.id; // Żeby sprawdzić połączenie, trzeba ręcznie wpisać id
-  const newseat = { id: id, author, text };
-  db.seats.push(newseat);
+  const { day, seat, client, email } = req.body;
+  const id = uuid();
+  const newSeat = { id: id, day, seat, client, email };
+  db.seats.push(newSeat);
   res.json({ message: 'ok!' });
 });
 
 router.route('/seats/:id').put(
   (req, res) => {
-    const { author, text } = req.body;
+    const { day, seat, client, email } = req.body;
     const id = +req.params.id;
-    const seat = db.seats.find((seat) => seat.id === id);
-    seat.author = author;
-    seat.text = text;
+    const seatChange = db.seats.find((seat) => seat.id === id);
+    seatChange.day = day;
+    seatChange.seat = seat;
+    seatChange.client = client;
+    seatChange.email - email;
     res.json({ message: 'OK!' });
   },
   (err) => {

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const uuid = require('uuid').v4;
 const db = require('./../db');
 
 router.route('/testimonials').get((req, res) => {
@@ -24,8 +25,7 @@ router.route('/testimonials/:id').get((req, res) => {
 
 router.route('/testimonials').post((req, res) => {
   const { author, text } = req.body;
-  // const id = uuid(); //Postman wywala błąd
-  const id = +req.params.id; // Żeby sprawdzić połączenie, trzeba ręcznie wpisać id
+  const id = uuid();
   const newTestimonial = { id: id, author, text };
   db.testimonials.push(newTestimonial);
   res.json({ message: 'ok!' });

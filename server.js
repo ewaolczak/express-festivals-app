@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-// const uuid = require('uuid'); // nie potrafię zrobić z tym testu przez Postmana
 
 // import db
 const db = require('./db.js');
