@@ -25,14 +25,8 @@ const OrderTicketForm = () => {
   const requests = useSelector(getRequests);
   console.log(requests);
 
-  const delay = 120000;
-
   useEffect(() => {
-    const interval = setInterval(() => {
-      dispatch(loadSeatsRequest());
-    }, delay);
-
-    return () => clearInterval(interval); // cleanup
+    dispatch(loadSeatsRequest());
   }, [dispatch]);
 
   const [order, setOrder] = useState({
