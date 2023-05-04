@@ -19,6 +19,7 @@ import {
 
 import './OrderTicketForm.scss';
 import SeatChooser from './../SeatChooser/SeatChooser';
+import io from 'socket.io-client';
 
 const OrderTicketForm = () => {
   const dispatch = useDispatch();
@@ -27,13 +28,17 @@ const OrderTicketForm = () => {
 
   const delay = 120000;
 
+  const socket = io(
+    process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:8000/'
+  );
+
   useEffect(() => {
     const interval = setInterval(() => {
       dispatch(loadSeatsRequest());
     }, delay);
 
     return () => clearInterval(interval); // cleanup
-  }, [dispatch]);
+  }, [dispatch, socket]);
 
   const [order, setOrder] = useState({
     client: '',
