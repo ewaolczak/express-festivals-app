@@ -1,0 +1,10 @@
+.promoCarousel {
+  max-height: 50rem;
+}
+.promoCarousel .carousel-inner {
+  max-height: 40rem;
+  position: relative;
+}
+.promoCarousel .carousel-item {
+  max-height: 40rem;
+}/*# sourceMappingURL=PromoCarousel.css.map */

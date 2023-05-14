@@ -1,0 +1,69 @@
+.concert {
+  position: relative;
+  overflow: hidden;
+  background: #1d1d1d;
+  color: #fff;
+}
+.concert__image-container {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+.concert__image-container__img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transition: 0.5s;
+  z-index: 2;
+  position: relative;
+}
+.concert__info {
+  margin: 2rem;
+}
+.concert__info__back {
+  position: absolute;
+  opacity: 0.4;
+  top: 0;
+  left: 0;
+  -webkit-filter: grayscale(0.5) blur(2px);
+}
+.concert__info__performer {
+  position: relative;
+  z-index: 2;
+}
+.concert__info__genre {
+  position: relative;
+  z-index: 2;
+}
+.concert__info__day-n-price {
+  position: relative;
+  z-index: 2;
+  margin: 0.5rem;
+  position: absolute;
+  bottom: 1rem;
+  left: 1.5rem;
+}
+.concert:nth-of-type(2n) .row {
+  color: #fff;
+}
+.concert:nth-of-type(2n) .row > div:first-child {
+  order: 2;
+}
+.concert:nth-of-type(2n) .row > div:second-child {
+  order: 1;
+}
+.concert:hover .concert__image-container__img {
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .concert__info__performer {
+    font-size: 1.8rem;
+    margin: 0.5rem;
+  }
+  .concert__info__genre {
+    font-size: 1.5rem;
+    opacity: 0.7;
+  }
+}/*# sourceMappingURL=Concert.css.map */
