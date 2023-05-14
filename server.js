@@ -4,7 +4,7 @@ const path = require('path');
 const socket = require('socket.io');
 const mongoose = require('mongoose');
 const uri =
-  'mongodb+srv://ewaolczak:g3msCFduZ5wFFOWU@ewa-olczak.nryeduz.mongodb.net/NewWaveDB';
+  'mongodb+srv://ewaolczak:g3msCFduZ5wFFOWU@ewa-olczak.nryeduz.mongodb.net/NewWaveDB?retryWrites=true&w=majority';
 
 // import routes
 const testimonialsRoutes = require('./routes/testimonials.routes');
@@ -37,13 +37,13 @@ app.use((req, res) => {
 });
 
 const server = app.listen(process.env.PORT || 8000, () => {
-  console.log("Server is running on port: 8000");
+  console.log('Server is running on port: 8000');
 });
 
 const io = socket(server);
 
-io.on("connection", (socket) => {
-  console.log("Client connected with ID: " + socket.id);
+io.on('connection', (socket) => {
+  console.log('Client connected with ID: ' + socket.id);
 });
 
 // connects our backend code with the database
@@ -58,7 +58,3 @@ db.once('open', () => {
   console.log('Connected to the database');
 });
 db.on('error', (err) => console.log('Error ' + err));
-
-app.listen('8000', () => {
-  console.log('Server is running on port: 8000');
-});
