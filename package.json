@@ -1,8 +1,8 @@
 {
-  "name": "express-third-app",
+  "name": "express-festivals-app",
   "version": "1.0.0",
   "main": "server.js",
-  "repository": "git@github.com:ewaolczak/express-third-app.git",
+  "repository": "git@github.com:ewaolczak/express-festivals-app.git",
   "author": "Ewa Olczak <ewa.olczak@gmail.com>",
   "license": "MIT",
   "dependencies": {
