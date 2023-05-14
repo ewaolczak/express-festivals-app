@@ -24,12 +24,10 @@ router.post('/concerts', async (req, res) => {
   try {
     const { performer, genre, price, day, image } = req.body;
     const newConcert = new Concert({
-      id: id,
       performer: performer,
       genre: genre,
       price: price,
-      day: day,
-      image: image
+      day: day
     });
     await newConcert.save();
     res.json({ message: 'ok!' });
@@ -41,10 +39,10 @@ router.post('/concerts', async (req, res) => {
 router.put('/concerts/:id', async (req, res) => {
   const { performer, genre, price, day, image } = req.body;
   try {
-    const dep = await Concert.findById(req.params.id);
+    const conc = await Concert.findById(req.params.id);
     if (conc) {
       await Concert.updateOne(
-        { _id: req.parans.id },
+        { _id: req.params.id },
         {
           $set: {
             performer: performer,
@@ -69,8 +67,8 @@ router.delete('/concerts/:id', async (req, res) => {
       await Concert.deleteOne({ _id: req.params.id });
       res.json({ message: 'OK!' });
     } else res.status(404).json({ message: 'Not found...' });
-  } catch (err) {}
+  } catch (err) {
   res.status(500).json({ message: err });
-});
+}});
 
 module.exports = router;
