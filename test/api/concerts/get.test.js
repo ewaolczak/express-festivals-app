@@ -42,32 +42,35 @@ describe('GET /concerts', () => {
   });
 
   // DLACZEGO NIE DZIAŁA??
-  
-  // it('/ should return all concetrs', async () => {
-  //   const res = await request(server).get('/concerts');
-  //   expect(res.status).to.be.equal(200);
-  //   expect(res.body).to.be.an('array');
-  //   expect(res.body.length).to.be.equal(3);
-  // });
+
+  it('/ should return all concetrs', async () => {
+    const res = await request(server).get('/concerts/');
+    expect(res.status).to.be.equal(200);
+    expect(res.body).to.be.an('array');
+    // expect(res.body).to.not.be.null;
+    expect(res.body.length).to.be.equal(3)
+  });
 
   it('/:id should return one concert by :id ', async () => {
-    const res = await request(server).get(
-      '/concerts/6469e4c466e95343001d5a48'
-    );
+    const res = await request(server).get('/concerts/6469e4c466e95343001d5a48');
     expect(res.status).to.be.equal(200);
     expect(res.body).to.be.an('object');
     expect(res.body).to.not.be.null;
   });
 
   it('/performer/:performer should return one concert by :performer ', async () => {
-    const res = await request(server).get('/concerts/performer/Conert One Test Performer');
+    const res = await request(server).get(
+      '/concerts/performer/Conert One Test Performer'
+    );
     expect(res.status).to.be.equal(200);
     expect(res.body).to.be.an('object');
     expect(res.body).to.not.be.null;
   });
 
   it('/genre/:genre should return all concerts by :genre ', async () => {
-    const res = await request(server).get('/concerts/genre/Concert One Test genre');
+    const res = await request(server).get(
+      '/concerts/genre/Concert One Test genre'
+    );
     expect(res.status).to.be.equal(200);
     expect(res.body).to.be.an('object');
     expect(res.body).to.not.be.null;
@@ -76,17 +79,17 @@ describe('GET /concerts', () => {
   it('/price/:price_min/:price_max should return all concert by prices', async () => {
     const res = await request(server).get('/concerts/price/25/75');
     expect(res.status).to.be.equal(200);
-    expect(res.body).to.be.an('object');
-    expect(res.body).to.not.be.null;
-    // expect(res.body.length).to.be.equal(3) // DLACZEGO?
+    expect(res.body).to.be.an('array');
+    // expect(res.body).to.not.be.null;
+    expect(res.body.length).to.be.equal(3) // DLACZEGO?
   });
 
   it('/day/:day should return all concert by :day ', async () => {
     const res = await request(server).get('/concerts/day/1');
     expect(res.status).to.be.equal(200);
-    expect(res.body).to.be.an('object');
+    expect(res.body).to.be.an('array');
     expect(res.body).to.not.be.null;
-    // expect(res.body.length).to.be.equal(3) // DLACZEGO?
+    expect(res.body.length).to.be.equal(3) // DLACZEGO?
   });
 
   after(async () => {
