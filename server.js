@@ -32,7 +32,7 @@ let dbUri = '';
 
 if (NODE_ENV === 'production')
   dbUri =
-    'mongodb+srv://ewaolczak:g3msCFduZ5wFFOWU@ewa-olczak.nryeduz.mongodb.net/NewWaveDB?retryWrites=true&w=majority';
+    `mongodb+srv://ewaolczak:${process.env.DB_PASS}@ewa-olczak.nryeduz.mongodb.net/NewWaveDB?retryWrites=true&w=majority`;
 else if (NODE_ENV === 'test') dbUri = 'mongodb://localhost:27017/NewWaveDBtest';
 else dbUri = 'mongodb://localhost:27017/NewWaveDB';
 

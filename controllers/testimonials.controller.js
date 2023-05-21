@@ -1,4 +1,5 @@
 const Testimonial = require('../models/testimonial.model');
+const sanitize = require('mongo-sanitize');
 
 exports.getAll = async (req, res) => {
   try {
@@ -6,7 +7,7 @@ exports.getAll = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err });
   }
-}
+};
 
 exports.getRandom = async (req, res) => {
   try {
@@ -18,7 +19,7 @@ exports.getRandom = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err });
   }
-}
+};
 
 exports.getById = async (req, res) => {
   try {
@@ -28,21 +29,21 @@ exports.getById = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err });
   }
-}
+};
 
 exports.post = async (req, res) => {
   try {
-    const { author, text } = req.body;
+    const { author, text } = sanitize(req.body);
     const newTestimonial = new Testimonial({ author: author, text: text });
     await newTestimonial.save();
     res.json({ message: 'ok!' });
   } catch (err) {
     res.status(500).json({ message: err });
   }
-}
+};
 
 exports.put = async (req, res) => {
-  const { author, text } = req.body;
+  const { author, text } = sanitize(req.body);
   try {
     const testim = await Testimonial.findById(req.params.id);
     if (testim) {
@@ -55,7 +56,7 @@ exports.put = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err });
   }
-}
+};
 
 exports.delete = async (req, res) => {
   try {
@@ -67,4 +68,4 @@ exports.delete = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err });
   }
-}
+};
