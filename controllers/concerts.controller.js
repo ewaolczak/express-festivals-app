@@ -67,10 +67,11 @@ exports.post = async (req, res) => {
       performer: performer,
       genre: genre,
       price: price,
-      day: day
+      day: day,
+      image: image
     });
     await newConcert.save();
-    res.json({ message: 'ok!' });
+    res.json({ message: 'OK' });
   } catch (err) {
     res.status(500).json({ message: err });
   }
@@ -93,7 +94,7 @@ exports.put = async (req, res) => {
           }
         }
       );
-      res.json({ message: 'OK!' });
+      res.json({ message: 'OK' });
     } else res.status(404).json({ message: 'Not found...' });
   } catch (err) {
     res.status(500).json({ message: err });
@@ -105,7 +106,7 @@ exports.delete = async (req, res) => {
     const conc = await Concert.findById(req.params.id);
     if (conc) {
       await Concert.deleteOne({ _id: req.params.id });
-      res.json({ message: 'OK!' });
+      res.json({ message: 'OK' });
     } else res.status(404).json({ message: 'Not found...' });
   } catch (err) {
     res.status(500).json({ message: err });

@@ -21,24 +21,31 @@ describe('GET /concerts', () => {
     await testConcOne.save();
 
     const testConcTwo = new Concert({
-      _id: '6469fa8b0a51e40a36031b81',
+      _id: '646a0e44e43932ca7e3ae325',
       performer: 'Conert Two Test Performer',
       genre: 'Concert Two Test genre',
-      price: 50,
-      day: 2,
+      price: 25,
+      day: 1,
       image: 'Concert Two Test Image'
     });
     await testConcTwo.save();
 
     const testConcThree = new Concert({
-      _id: '6469fa8b0a51e40a36031b81',
+      _id: '646a195740e21f73592c5928',
       performer: 'Conert Three Test Performer',
       genre: 'Concert Three Test genre',
-      price: 50,
-      day: 2,
+      price: 25,
+      day: 1,
       image: 'Concert Three Test Image'
     });
     await testConcThree.save();
+  });
+
+  it('/ should return all concetrs', async () => {
+    const res = await request(server).get('/concerts');
+    expect(res.status).to.be.equal(200);
+    expect(res.body).to.be.an('array');
+    expect(res.body.length).to.be.equal(3);
   });
 
   after(async () => {
