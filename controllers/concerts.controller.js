@@ -28,6 +28,38 @@ exports.getByPerformer = async (req, res) => {
   }
 };
 
+exports.getByGenre = async (req, res) => {
+  try {
+    const conc = await Concert.findByGenre(req.params.genre);
+    if (!conc) res.status(404).json({ message: 'Not found' });
+    else res.json(conc);
+  } catch (err) {
+    res.status(500).json({ message: err });
+  }
+};
+
+exports.getByPrice = async (req, res) => {
+  try {
+    const conc = await Concert.findByPrice({
+      price: { $gte: req.params.price_min, $lte: req.params.price_max }
+    });
+    if (!conc) res.status(404).json({ message: 'Not found' });
+    else res.json(conc);
+  } catch (err) {
+    res.status(500).json({ message: err });
+  }
+};
+
+exports.getByDay = async (req, res) => {
+  try {
+    const conc = await Concert.findByDay(req.params.day);
+    if (!conc) res.status(404).json({ message: 'Not found' });
+    else res.json(conc);
+  } catch (err) {
+    res.status(500).json({ message: err });
+  }
+};
+
 exports.post = async (req, res) => {
   try {
     const { performer, genre, price, day, image } = req.body;
