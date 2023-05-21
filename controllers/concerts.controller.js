@@ -6,7 +6,7 @@ exports.getAll = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err });
   }
-}
+};
 
 exports.getById = async (req, res) => {
   try {
@@ -16,7 +16,17 @@ exports.getById = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err });
   }
-}
+};
+
+exports.getByPerformer = async (req, res) => {
+  try {
+    const conc = await Concert.findByPerformer(req.params.performer);
+    if (!conc) res.status(404).json({ message: 'Not found' });
+    else res.json(conc);
+  } catch (err) {
+    res.status(500).json({ message: err });
+  }
+};
 
 exports.post = async (req, res) => {
   try {
@@ -32,7 +42,7 @@ exports.post = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err });
   }
-}
+};
 
 exports.put = async (req, res) => {
   const { performer, genre, price, day, image } = req.body;
@@ -56,7 +66,7 @@ exports.put = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err });
   }
-}
+};
 
 exports.delete = async (req, res) => {
   try {
@@ -66,5 +76,6 @@ exports.delete = async (req, res) => {
       res.json({ message: 'OK!' });
     } else res.status(404).json({ message: 'Not found...' });
   } catch (err) {
-  res.status(500).json({ message: err });
-}}
+    res.status(500).json({ message: err });
+  }
+};
