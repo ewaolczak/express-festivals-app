@@ -3,8 +3,19 @@ const cors = require('cors');
 const path = require('path');
 const socket = require('socket.io');
 const mongoose = require('mongoose');
-const uri =
-  'mongodb+srv://ewaolczak:g3msCFduZ5wFFOWU@ewa-olczak.nryeduz.mongodb.net/NewWaveDB?retryWrites=true&w=majority';
+
+// connects our backend code with the database
+const NODE_ENV = process.env.NODE_ENV;
+let dbUri = '';
+
+if (NODE_ENV === 'production')
+  dbUri =
+    'mongodb+srv://ewaolczak:g3msCFduZ5wFFOWU@ewa-olczak.nryeduz.mongodb.net/NewWaveDB?retryWrites=true&w=majority';
+else if (NODE_ENV === 'test') dbUri = 'mongodb://localhost:27017/NewWaveDBtest';
+else dbUri = 'mongodb://localhost:27017/NewWaveDB';
+
+mongoose.connect(dbUri, { useNewUrlParser: true, useUnifiedTopology: true });
+const db = mongoose.connection;
 
 // import routes
 const testimonialsRoutes = require('./routes/testimonials.routes');
@@ -45,14 +56,6 @@ const io = socket(server);
 io.on('connection', (socket) => {
   console.log('Client connected with ID: ' + socket.id);
 });
-
-// connects our backend code with the database
-mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-
-const db = mongoose.connection;
 
 db.once('open', () => {
   console.log('Connected to the database');
