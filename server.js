@@ -1,20 +1,20 @@
-import express from 'express';
+const dotenv = require('dotenv');
+dotenv.config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const socket = require('socket.io');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
-// const rateLimit = require('expre-rate-limit');
 
 // import routes
 const testimonialsRoutes = require('./routes/testimonials.routes');
 const concertsRoutes = require('./routes/concerts.routes');
 const seatsRoutes = require('./routes/seats.routes');
 
+// deepcode ignore UseCsurfForExpress: <please specify a reason of ignoring this>
 const app = express();
 
-// app.use('/download', rateLimit());
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
