@@ -1,9 +1,11 @@
+import express from 'express';
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const socket = require('socket.io');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
+// const rateLimit = require('expre-rate-limit');
 
 // import routes
 const testimonialsRoutes = require('./routes/testimonials.routes');
@@ -12,6 +14,7 @@ const seatsRoutes = require('./routes/seats.routes');
 
 const app = express();
 
+// app.use('/download', rateLimit());
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
@@ -40,7 +43,7 @@ else dbUri = 'mongodb://localhost:27017/NewWaveDB';
 mongoose.connect(dbUri, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
-app.get('*', (req, res) => {
+app.get('*', (_req, res) => {
   res.sendFile(path.join(__dirname, '/client/build/index.html'));
 });
 
